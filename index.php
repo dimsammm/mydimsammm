@@ -1,4 +1,5 @@
 <?php
+require 'src/Hello.php'; // path ke Hello.php
 
-
-echo (new \App\Hello())->greet();
+$hello = new App\Hello();
+$hello->sayHello();
