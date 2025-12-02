@@ -1,8 +1,10 @@
 <?php
+// File: src/Hello.php
+
 namespace App;
 
 class Hello {
-    public function greet() {
-        return "Hello from PHP\n";
+    public function sayHello() {
+        echo "Halo! Ini Hello class berjalan di PHP!";
     }
 }
