@@ -2,36 +2,33 @@ pipeline {
     agent any
 
     environment {
-        PHP_EXE = "C:\\$Recycle.Bin\\S-1-5-21-422917948-2734144976-3704770329-1002\\$RQB6Q4F\\php\\windowsXamppPhp\\php.exe"
+        // Path ke php.exe yang sudah terinstall
+        PHP_EXE = 'C:\\php\\php.exe'
+        // Path ke project XAMPP
+        PROJECT_PATH = 'C:\\xampp\\htdocs\\mydimsammm'
     }
 
     stages {
-
-        stage('Checkout') {
-            steps {
-                echo "👉 Checking out source code..."
-                checkout scm
-            }
-        }
-
         stage('Run PHP Script') {
             steps {
-                echo "👉 Running PHP script..."
-                bat "\"%PHP_EXE%\" index.php"
+                echo "👉 Menjalankan script PHP di project..."
+                // Ganti index.php dengan script utama project kamu
+                bat "${PHP_EXE} ${PROJECT_PATH}\\index.php"
             }
         }
 
-        stage('Unit Test') {
+        stage('Optional: Run Other Scripts') {
             steps {
-                echo "👉 Running tests..."
-                bat "\"%PHP_EXE%\" tests.php"
+                echo "👉 Menjalankan script PHP lain (opsional)..."
+                // Contoh menjalankan script lain
+                // bat "${PHP_EXE} ${PROJECT_PATH}\\script2.php"
             }
         }
     }
 
     post {
         success {
-            echo "🎉 Build Sukses!"
+            echo "✅ Build selesai dengan sukses!"
         }
         failure {
             echo "❌ Build Gagal!"
