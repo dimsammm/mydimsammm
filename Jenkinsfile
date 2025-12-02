@@ -1,29 +1,36 @@
 pipeline {
-  agent any
+    agent any
 
-  stages {
-    stage('Checkout') {
-      steps {
-        checkout scm
-      }
+    stages {
+
+        stage('Checkout') {
+            steps {
+                echo "👉 Checking out source code..."
+                checkout scm
+            }
+        }
+
+        stage('Run PHP Script') {
+            steps {
+                echo "👉 Running PHP script..."
+                bat 'php index.php'
+            }
+        }
+
+        stage('Unit Test') {
+            steps {
+                echo "👉 Running tests..."
+                bat 'php tests.php'
+            }
+        }
     }
 
-    stage('Install') {
-      steps {
-        bat 'composer install'
-      }
+    post {
+        success {
+            echo "🎉 Build Sukses!"
+        }
+        failure {
+            echo "❌ Build Gagal!"
+        }
     }
-
-    stage('Run PHP Script') {
-      steps {
-        powershell 'php index.php'
-      }
-    }
-
-    stage('Unit Test') {
-      steps {
-        powershell 'vendor\\bin\\phpunit'
-      }
-    }
-  }
 }
